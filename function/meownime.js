@@ -1,5 +1,12 @@
 class Meownime {
-    meownime = (info, thumb) => {
+    meownime = (info, thumb, $) => {
+        let t = info.filter(function(data) {
+            return data.includes('Judul')
+        })[0] !== undefined ? info.filter(function(data) {
+            return data.includes('Judul')
+        })[0].replace('Judul: ', '') : '';
+        const txt = $('.sinops').text().toString().replace(/\s\s+/g, '').replace(`Sinopsis : ${t}`, '')
+
         const result = {
             images: thumb,
             title:info.filter(function(data) {
@@ -7,6 +14,7 @@ class Meownime {
             })[0] !== undefined ? info.filter(function(data) {
                 return data.includes('Judul Alternatif')
             })[0].replace('Judul Alternatif : ', '') : '',
+            synopsis: txt.replace('Synopsis', ''),
             episode: info.filter(function(data) {
                 return data.includes('Jumlah Episode')
             })[0] !== undefined ? info.filter(function(data) {

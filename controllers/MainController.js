@@ -66,7 +66,6 @@ class MainController {
         const filter = portalLists.filter(function(data) {
             return data.toLowerCase() === portal
         }).join("")
-        console.log(filter)
         if(filter.toLowerCase() === portal) {
             const url = `${baseUrl}${portal}/${id}/` 
             const jar = new cookie.CookieJar();
@@ -90,11 +89,11 @@ class MainController {
 
             if (info[0] !== undefined) {
                 if (portal === 'otakudesu') {
-                    obj.detail = otakudesu.otakudesu(info, thumb)
+                    obj.detail = otakudesu.otakudesu(info, thumb, $)
                 }
 
                 if (portal === 'oploverz') {
-                    obj.detail = oploverz.oploverz(info, thumb)
+                    obj.detail = oploverz.oploverz(info, thumb, $)
                 }
     
                 if (portal === 'kusonime') {
@@ -106,11 +105,9 @@ class MainController {
                 }
 
                 if (portal === 'meownime') {
-                    obj.detail = meownime.meownime(info, thumb)
+                    obj.detail = meownime.meownime(info, thumb, $)
                 }
             }
-
-            console.log(info)
 
             req.send(obj)
         } else {

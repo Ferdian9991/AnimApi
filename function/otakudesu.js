@@ -1,5 +1,12 @@
 class Otakudesu {
-    otakudesu = (info, thumb) => {
+    otakudesu = (info, thumb, $) => {
+        let t = info.filter(function(data) {
+            return data.includes('Judul')
+        })[0] !== undefined ? info.filter(function(data) {
+            return data.includes('Judul')
+        })[0].replace('Judul: ', '') : '';
+        const txt = $('.sinops').text().toString().replace(/\s\s+/g, '').replace(`Sinopsis : ${t}`, '')
+        
         const result = {
             images: thumb,
             title:info.filter(function(data) {
@@ -7,6 +14,7 @@ class Otakudesu {
             })[0] !== undefined ? info.filter(function(data) {
                 return data.includes('Judul')
             })[0].replace('Judul: ', '') : '',
+            synopsis: $('.sinops').find('p').eq(0).text() || txt,
             japanese: info.filter(function(data) {
                 return data.includes('Japanese')
             })[0] !== undefined ? info.filter(function(data) {

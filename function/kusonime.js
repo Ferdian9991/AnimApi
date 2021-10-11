@@ -1,8 +1,15 @@
 class Kusonime {
     kusonime = (info, thumb, $) => {
+        let t = info.filter(function(data) {
+            return data.includes('Judul')
+        })[0] !== undefined ? info.filter(function(data) {
+            return data.includes('Judul')
+        })[0].replace('Judul: ', '') : '';
+        const txt = $('.sinops').text().toString().replace(/\s\s+/g, '').replace(`Sinopsis : ${t}`, '')
         const result = {
             images: thumb,
             title: $('.container').find('.main-col').find('.ptitle').text(),
+            synopsis: txt,
             japanese: info.filter(function(data) {
                 return data.includes('Japanese')
             })[0] !== undefined ? info.filter(function(data) {
