@@ -1,1 +1,2 @@
-# wibudesu-anime-api
+# AnimApi 
+AnimApi is a public api built using node js
