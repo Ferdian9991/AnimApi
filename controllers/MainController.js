@@ -9,21 +9,25 @@ var cookie = require('tough-cookie')
 const wrapper = require('axios-cookiejar-support')
 const baseUrl = "https://otakupoi.com/"
 const portalLists = [
-    'anitoki',
-    'kusonime',
-    'maxnime',
-    'meownime',
-    'oploverz',
-    'otakudesu'
+    'Anitoki',
+    'Kusonime',
+    'Meownime',
+    'Oploverz',
+    'Otakudesu'
 ]
+const oploverz = require('../function/oploverz')
+const otakudesu = require('../function/otakudesu')
+const kusonime = require('../function/kusonime')
+const anitoki = require('../function/anitoki')
+const meownime = require('../function/meownime')
 
 class MainController {
     async search ({params: {portal, query}}, req) {
         let obj = {};
         const filter = portalLists.filter(function(data) {
-            return data === portal
+            return data.toLowerCase() === portal
         }).join("")
-        if (filter === portal) {
+        if (filter.toLowerCase() === portal) {
             const search = `${baseUrl}${portal}/search/?q=${query}`
             const jar = new cookie.CookieJar();
             const client = wrapper.wrapper(axios.create({ jar }));
@@ -45,7 +49,7 @@ class MainController {
             })
             obj.status = req.statusCode === 200 ? "success" : "server error";
             obj.statusCode = req.statusCode
-            obj.source = portal
+            obj.source = filter
             obj.result = result
             req.send(obj)
         } else {
@@ -60,9 +64,10 @@ class MainController {
     async animeDetail ({params: {portal, id}}, req) {
         let obj = {};
         const filter = portalLists.filter(function(data) {
-            return data === portal
+            return data.toLowerCase() === portal
         }).join("")
-        if(filter === portal) {
+        console.log(filter)
+        if(filter.toLowerCase() === portal) {
             const url = `${baseUrl}${portal}/${id}/` 
             const jar = new cookie.CookieJar();
             const client = wrapper.wrapper(axios.create({ jar }));
@@ -73,46 +78,35 @@ class MainController {
             const info = []
 
             element.find('li').each(function() {
-                const result = $(this).find('span').text()
+                const result = $(this).find('span').text() || $(this).find('b').text()
                 info.push(result)
             })
             const thumb = $('.container').find('.main-col').find('.bg-white').find('img').attr('src')
 
             obj.status = req.statusCode === 200 ? "success" : "server error";
             obj.statusCode = req.statusCode
-            obj.source = portal
+            obj.source = filter
+            obj.detail = []
 
-            if (portal === 'otakudesu') {
-                obj.result = {
-                    images: thumb,
-                    title: info[0].replace('Judul: ', ''),
-                    japanese: info[1].replace('Japanese: ', ''),
-                    score: info[2].replace('Skor: ', ''),
-                    producer: info[3].replace('Produser: ', ''),
-                    type: info[4].replace('Tipe: ', ''),
-                    status: info[5].replace('Status: ', ''),
-                    episode: info[6].replace('Total Episode: ', ''),
-                    duration: info[7].replace('Durasi: ', ''),
-                    release: info[8].replace('Tanggal Rilis: ', ''),
-                    studio: info[9].replace('Studio: ', ''),
-                    genre: info[10].replace('Genre: ', ''),
+            if (info[0] !== undefined) {
+                if (portal === 'otakudesu') {
+                    obj.detail = otakudesu.otakudesu(info, thumb)
                 }
-            }
 
-            if (portal === 'kusonime') {
-                obj.result = {
-                    images: thumb,
-                    title: $('.container').find('.main-col').find('.ptitle').text(),
-                    japanese: info[0].replace('Japanese: ', ''),
-                    genre: info[1].replace('Genre: ', ''),
-                    season: info[2].replace('Seasons: ', ''),
-                    producer: info[3].replace('Producers: ', ''),
-                    type: info[4].replace('Type: ', ''),
-                    status: info[5].replace('Status: ', ''),
-                    episode: info[6].replace('Total Episode: ', ''),
-                    score: info[7].replace('Score: ', ''),
-                    duration: info[8].replace('Duration: ', ''),
-                    release: info[9].replace('Released on: ', ''),
+                if (portal === 'oploverz') {
+                    obj.detail = oploverz.oploverz(info, thumb)
+                }
+    
+                if (portal === 'kusonime') {
+                    obj.detail = kusonime.kusonime(info, thumb, $)
+                }
+
+                if (portal === 'anitoki') {
+                    obj.detail = anitoki.anitoki(info, thumb, $)
+                }
+
+                if (portal === 'meownime') {
+                    obj.detail = meownime.meownime(info, thumb)
                 }
             }
 
