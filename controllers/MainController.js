@@ -77,7 +77,7 @@ class MainController {
             const info = []
 
             element.find('li').each(function() {
-                const result = $(this).find('span').text() || $(this).find('b').text() || $(this).text()
+                const result = $(this).text() || $(this).find('span').text() || $(this).find('b').text()
                 info.push(result)
             })
             const thumb = $('.container').find('.main-col').find('.bg-white').find('img').attr('src')
