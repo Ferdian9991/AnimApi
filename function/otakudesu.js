@@ -5,7 +5,7 @@ class Otakudesu {
         })[0] !== undefined ? info.filter(function(data) {
             return data.includes('Judul')
         })[0].replace('Judul: ', '') : '';
-        const txt = $('.sinops').text().toString().replace(/\s\s+/g, '').replace(`Sinopsis : ${t}`, '')
+        const txt = $('.sinops').text().toString().replace(/\s\s+/g, '').replace(`Sinopsis : ${t}`, '').replace(/\n/g, '')
         
         const result = {
             images: thumb,
@@ -14,7 +14,7 @@ class Otakudesu {
             })[0] !== undefined ? info.filter(function(data) {
                 return data.includes('Judul')
             })[0].replace('Judul: ', '') : '',
-            synopsis: $('.sinops').find('p').eq(0).text() || txt,
+            synopsis: txt + $('.sinops').find('p').text(),
             japanese: info.filter(function(data) {
                 return data.includes('Japanese')
             })[0] !== undefined ? info.filter(function(data) {

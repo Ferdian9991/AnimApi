@@ -5,7 +5,7 @@ class Anitoki {
         })[0] !== undefined ? info.filter(function(data) {
             return data.includes('Judul')
         })[0].replace('Judul: ', '') : '';
-        const txt = $('.sinops').text().toString().replace(/\s\s+/g, '').replace(`Sinopsis : ${t}`, '')
+        const txt = $('.sinops').text().toString().replace(/\s\s+/g, '').replace(`Sinopsis : ${t}`, '').replace(/\n/g, '')
 
         const result = {
             images: thumb,
@@ -32,10 +32,10 @@ class Anitoki {
                 return data.includes('Type')
             })[0].replace('Type: ', '') : '',
             duration: info.filter(function(data) {
-                return data.includes('Durasi')
+                return data.includes('Duration')
             })[0] !== undefined ? info.filter(function(data) {
-                return data.includes('Durasi')
-            })[0].replace('Durasi: ', '') : '',
+                return data.includes('Duration')
+            })[0].replace('Duration: ', '') : '',
             released: info.filter(function(data) {
                 return data.includes('Released on')
             })[0] !== undefined ? info.filter(function(data) {

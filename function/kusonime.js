@@ -5,7 +5,7 @@ class Kusonime {
         })[0] !== undefined ? info.filter(function(data) {
             return data.includes('Judul')
         })[0].replace('Judul: ', '') : '';
-        const txt = $('.sinops').text().toString().replace(/\s\s+/g, '').replace(`Sinopsis : ${t}`, '')
+        const txt = $('.sinops').text().toString().replace(/\s\s+/g, '').replace(`Sinopsis : ${t}`, '').replace(/\n/g, '')
         const result = {
             images: thumb,
             title: $('.container').find('.main-col').find('.ptitle').text(),

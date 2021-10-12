@@ -6,7 +6,7 @@ class Oploverz {
         })[0] !== undefined ? info.filter(function(data) {
             return data.includes('Judul')
         })[0].replace('Judul: ', '') : '';
-        const txt = $('.sinops').text().toString().replace(/\s\s+/g, '').replace(`Sinopsis : ${t}`, '')
+        const txt = $('.sinops').text().toString().replace(/\s\s+/g, '').replace(`Sinopsis : ${t}`, '').replace(/\n/g, '')
         const result = {
             images: thumb,
             title:info.filter(function(data) {
@@ -40,11 +40,11 @@ class Oploverz {
             })[0] !== undefined ? info.filter(function(data) {
                 return data.includes('Season')
             })[0].replace('Season: ', '') : '',
-            info: info.filter(function(data) {
-                return data.includes('Info')
+            type: info.filter(function(data) {
+                return data.includes('Tipe')
             })[0] !== undefined ? info.filter(function(data) {
-                return data.includes('Info')
-            })[0].replace('Info: ', '') : '',
+                return data.includes('Tipe')
+            })[0].replace('Tipe: ', '') : '',
             episode: info.filter(function(data) {
                 return data.includes('Episodes')
             })[0] !== undefined ? info.filter(function(data) {
