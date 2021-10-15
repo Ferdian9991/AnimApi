@@ -20,6 +20,14 @@ const otakudesu = require('../function/otakudesu')
 const kusonime = require('../function/kusonime')
 const anitoki = require('../function/anitoki')
 const meownime = require('../function/meownime')
+const puppeteer = require('puppeteer');
+const { data } = require('cheerio/lib/api/attributes');
+
+const UserAgent = async (page) => {
+    const userAgent = 'Mozilla/5.0 (X11; Linux x86_64)' +
+      'AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.39 Safari/537.36';
+    await page.setUserAgent(userAgent);
+}
 
 class MainController {
     async search ({params: {portal, query}}, req) {
@@ -90,22 +98,132 @@ class MainController {
             if (info[0] !== undefined) {
                 if (portal === 'otakudesu') {
                     obj.detail = otakudesu.otakudesu(info, thumb, $)
+                    const browser = await puppeteer.launch();
+                    const page = await browser.newPage();
+                    await UserAgent(page);
+                    await page.goto(url, {
+                        waitUntil: 'networkidle2',
+                    });
+                    const downloadList = await page.evaluate(() => {
+                        let list = []
+                        const data = document.querySelectorAll(`a[class="othereps"]`)
+                        data.forEach((item) => {
+                            const obj = {
+                                title: item.innerText,
+                                url: item.getAttribute('href'),
+                                id: item.getAttribute('href').replace('/anime/', '')
+                            }
+                            list.push(obj)
+                        });
+                        return list
+                    })
+
+                    obj.episode_list = downloadList
+                    
+                    await browser.close();
                 }
 
                 if (portal === 'oploverz') {
-                    obj.detail = oploverz.oploverz(info, thumb, $)
+                    obj.detail = oploverz.oploverz(info, thumb, $);
+                    const browser = await puppeteer.launch();
+                    const page = await browser.newPage();
+                    await UserAgent(page);
+                    await page.goto(url, {
+                        waitUntil: 'networkidle2',
+                    });
+                    const downloadList = await page.evaluate(() => {
+                        let list = []
+                        const data = document.querySelectorAll(`a[class="othereps"]`)
+                        data.forEach((item) => {
+                            const obj = {
+                                title: item.innerText,
+                                url: item.getAttribute('href'),
+                                id: item.getAttribute('href').replace('/oploverz/anime/', '')
+                            }
+                            list.push(obj)
+                        });
+                        return list
+                    })
+
+                    obj.episode_list = downloadList
+                    
+                    await browser.close();
                 }
-    
                 if (portal === 'kusonime') {
                     obj.detail = kusonime.kusonime(info, thumb, $)
                 }
 
                 if (portal === 'anitoki') {
                     obj.detail = anitoki.anitoki(info, thumb, $)
+                    const browser = await puppeteer.launch();
+                    const page = await browser.newPage();
+                    await UserAgent(page);
+                    await page.goto(url, {
+                        waitUntil: 'networkidle2',
+                    });
+                    const downloadList = await page.evaluate(() => {
+                        let list = []
+                        const data = document.querySelectorAll(`a[class="othereps"]`)
+                        data.forEach((item) => {
+                            const obj = {
+                                title: item.innerText,
+                                url: item.getAttribute('href'),
+                                id: item.getAttribute('href').replace('/anitoki/anime/', '')
+                            }
+                            list.push(obj)
+                        });
+                        return list
+                    })
+
+                    obj.episode_list = downloadList
+                    
+                    await browser.close();
                 }
 
                 if (portal === 'meownime') {
                     obj.detail = meownime.meownime(info, thumb, $)
+                    const browser = await puppeteer.launch();
+                    const page = await browser.newPage();
+                    await UserAgent(page);
+                    await page.goto(url, {
+                        waitUntil: 'networkidle2',
+                    });
+                    const urlList = []
+                    const section = await page.evaluate(() => {
+                        const url = document.querySelector('.maxdl.nw') !== null ? document.querySelector('.maxdl.nw').innerHTML.split('</section>') : undefined;
+                        url !== undefined ? url.splice(0,1) : undefined;
+                        return url
+                    })
+
+                    if (section !== undefined) {
+                        for (let i = 0; i < section.length; i++) {
+                            const links = [];
+                            const scrape = cheerio.load(section[i]);
+                            scrape('.maxurl').each(function() {
+                                const data = []
+                                scrape(this).find('a').each(function() {
+                                    const result = {
+                                        link_id: scrape(this).text(),
+                                        url: "https://otakupoi.com" + scrape(this).attr('href')
+                                    }
+                                    data.push(result)
+                                })
+                                const list = {
+                                    id: scrape(this).find('strong').text(),
+                                    data: data
+                                }
+                                links.push(list)
+                            })
+                            const data = {
+                                title: scrape('.maxtitle').text(),
+                                download_url: links
+                            }
+                            urlList.push(data)
+                        }
+                        obj.download_list = urlList
+                    }
+                    console.log(urlList)
+                    await browser.close();
                 }
             }
 
