@@ -125,7 +125,7 @@ class MainController {
                     const page = await browser.newPage();
                     await UserAgent(page);
                     await page.goto(url, {
-                        waitUntil: 'domcontentloaded',
+                        waitUntil: 'networkidle2',
                     });
                     const downloadList = await page.evaluate(() => {
                         let list = []
