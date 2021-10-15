@@ -1,10 +1,6 @@
-const scraperjs = require('scraperjs')
 const axios = require("axios");
 const cheerio = require("cheerio");
-const _url = require('url');
-const _math = require('mathjs');
 const zsExtract = require('zs-extract');
-const request = require('request')
 var cookie = require('tough-cookie')
 const wrapper = require('axios-cookiejar-support')
 const baseUrl = "https://otakupoi.com/"
@@ -102,7 +98,7 @@ class MainController {
                     const page = await browser.newPage();
                     await UserAgent(page);
                     await page.goto(url, {
-                        waitUntil: 'networkidle2',
+                        waitUntil: 'domcontentloaded',
                     });
                     const downloadList = await page.evaluate(() => {
                         let list = []
@@ -129,7 +125,7 @@ class MainController {
                     const page = await browser.newPage();
                     await UserAgent(page);
                     await page.goto(url, {
-                        waitUntil: 'networkidle2',
+                        waitUntil: 'domcontentloaded',
                     });
                     const downloadList = await page.evaluate(() => {
                         let list = []
@@ -159,7 +155,7 @@ class MainController {
                     const page = await browser.newPage();
                     await UserAgent(page);
                     await page.goto(url, {
-                        waitUntil: 'networkidle2',
+                        waitUntil: 'domcontentloaded',
                     });
                     const downloadList = await page.evaluate(() => {
                         let list = []
@@ -186,7 +182,7 @@ class MainController {
                     const page = await browser.newPage();
                     await UserAgent(page);
                     await page.goto(url, {
-                        waitUntil: 'networkidle2',
+                        waitUntil: 'domcontentloaded',
                     });
                     const urlList = []
                     const section = await page.evaluate(() => {
@@ -222,7 +218,6 @@ class MainController {
                         }
                         obj.download_list = urlList
                     }
-                    console.log(urlList)
                     await browser.close();
                 }
             }
