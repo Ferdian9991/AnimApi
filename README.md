@@ -16,26 +16,22 @@ npm install
 npm run start
 ```
 
-## API Documentation
+## Documentation
 __Api Path__ : http://anims-api.herokuapp.com/</br>
 __API Version__ : v1
 
 | Endpoint | Source | Params | Description |
 | -------- | ------ | -----------|
-| /otakudesu/search/(query) | Otakudesu | - | Search Anime |
-| /otakudesu/anime/(id) | Otakudesu | - | Anime Detail |
-| -------- | ------ | -----------|
-| /kusonime/search/(query) | Kusonime | - | Search Anime |
-| /kusonime/anime/(id) | Kusonime | - | Anime Detail |
-| -------- | ------ | -----------|
-| /anitoki/search/(query) | Anitoki | - | Search Anime |
-| /anitoki/anime/(id) | Anitoki | - | Anime Detail |
-| -------- | ------ | -----------|
-| /oploverz/search/(query) | Oploverz | - | Search Anime |
-| /oploverz/anime/(id) | Oploverz | - | Anime Detail |
-| -------- | ------ | -----------|
-| /meownime/search/(query) | Meownime | - | Search Anime |
-| /meownime/anime/(id) | Meownime | - | Anime Detail |
+| /otakudesu/search/(query) | Otakudesu | query | Search Anime |
+| /otakudesu/anime/(id) | Otakudesu | id | Anime Detail |
+| /kusonime/search/(query) | Kusonime | query | Search Anime |
+| /kusonime/anime/(id) | Kusonime | id | Anime Detail |
+| /anitoki/search/(query) | Anitoki | query | Search Anime |
+| /anitoki/anime/(id) | Anitoki | id | Anime Detail |
+| /oploverz/search/(query) | Oploverz | query | Search Anime |
+| /oploverz/anime/(id) | Oploverz | id | Anime Detail |
+| /meownime/search/(query) | Meownime | query | Search Anime |
+| /meownime/anime/(id) | Meownime | id | Anime Detail |
 
 ## License
 [MIT](https://github.com/Ferdian9991/AnimApi/blob/main/LICENSE.md)
