@@ -98,7 +98,7 @@ class MainController {
             if (info[0] !== undefined) {
                 if (portal === 'otakudesu') {
                     obj.detail = otakudesu.otakudesu(info, thumb, $)
-                    const browser = await puppeteer.launch();
+                    const browser = await puppeteer.launch({ args: ['--no-sandbox'] });
                     const page = await browser.newPage();
                     await UserAgent(page);
                     await page.goto(url, {
@@ -125,7 +125,7 @@ class MainController {
 
                 if (portal === 'oploverz') {
                     obj.detail = oploverz.oploverz(info, thumb, $);
-                    const browser = await puppeteer.launch();
+                    const browser = await puppeteer.launch({ args: ['--no-sandbox'] });
                     const page = await browser.newPage();
                     await UserAgent(page);
                     await page.goto(url, {
@@ -155,7 +155,7 @@ class MainController {
 
                 if (portal === 'anitoki') {
                     obj.detail = anitoki.anitoki(info, thumb, $)
-                    const browser = await puppeteer.launch();
+                    const browser = await puppeteer.launch({ args: ['--no-sandbox'] });
                     const page = await browser.newPage();
                     await UserAgent(page);
                     await page.goto(url, {
@@ -182,7 +182,7 @@ class MainController {
 
                 if (portal === 'meownime') {
                     obj.detail = meownime.meownime(info, thumb, $)
-                    const browser = await puppeteer.launch();
+                    const browser = await puppeteer.launch({ args: ['--no-sandbox'] });
                     const page = await browser.newPage();
                     await UserAgent(page);
                     await page.goto(url, {
