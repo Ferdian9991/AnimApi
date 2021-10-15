@@ -21,7 +21,7 @@ __Api Path__ : http://anims-api.herokuapp.com/</br>
 __API Version__ : v1
 
 | Endpoint | Source | Params | Description |
-| -------- | ------ | -----------|
+| -------- | ------ | ------ | -----------|
 | /otakudesu/search/(query) | Otakudesu | query | Search Anime |
 | /otakudesu/anime/(id) | Otakudesu | id | Anime Detail |
 | /kusonime/search/(query) | Kusonime | query | Search Anime |
