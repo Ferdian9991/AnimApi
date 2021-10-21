@@ -114,6 +114,14 @@ class MainController {
                     await page.goto(url, {
                         waitUntil: 'networkidle2',
                     });
+                    await page.setRequestInterception(true);
+                    page.on('request', (req) => {
+                        if (req.resourceType() === 'image') {
+                          req.abort();
+                        } else {
+                          req.continue();
+                        }
+                    });
                     const downloadList = await page.evaluate(() => {
                         let list = []
                         const data = document.querySelectorAll(`a[class="othereps"]`)
@@ -140,6 +148,14 @@ class MainController {
                     await UserAgent(page);
                     await page.goto(url, {
                         waitUntil: 'networkidle2',
+                    });
+                    await page.setRequestInterception(true);
+                    page.on('request', (req) => {
+                        if (req.resourceType() === 'image') {
+                          req.abort();
+                        } else {
+                          req.continue();
+                        }
                     });
                     const downloadList = await page.evaluate(() => {
                         let list = []
@@ -171,6 +187,14 @@ class MainController {
                     await page.goto(url, {
                         waitUntil: 'networkidle2',
                     });
+                    await page.setRequestInterception(true);
+                    page.on('request', (req) => {
+                        if (req.resourceType() === 'image') {
+                          req.abort();
+                        } else {
+                          req.continue();
+                        }
+                    });
                     const downloadList = await page.evaluate(() => {
                         let list = []
                         const data = document.querySelectorAll(`a[class="othereps"]`)
@@ -196,7 +220,15 @@ class MainController {
                     const page = await browser.newPage();
                     await UserAgent(page);
                     await page.goto(url, {
-                        waitUntil: 'domcontentloaded',
+                        waitUntil: 'networkidle2',
+                    });
+                    await page.setRequestInterception(true);
+                    page.on('request', (req) => {
+                        if (req.resourceType() === 'image') {
+                          req.abort();
+                        } else {
+                          req.continue();
+                        }
                     });
                     const urlList = []
                     const section = await page.evaluate(() => {
