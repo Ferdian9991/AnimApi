@@ -205,6 +205,37 @@ class MainController {
                         return url
                     })
 
+                    const maxdl = $('.main-col').find('.bg-white.shadow')
+                        .find('.bg-white.shadow')
+                        .find('.white')
+                        .find('.maxdl')
+                    
+                    maxdl.each(function() {
+                        const download_list = []
+                        $(this).find('.maxurl').each(function() {
+                            const mirror_list = []
+                            $(this).find('a').each(function() {
+                                const mirror = {
+                                    link_id: $(this).text(),
+                                    url: "https://otakupoi.com" + $(this).attr('href')
+                                }
+                                mirror_list.push(mirror)
+                            })
+                            const links = {
+                                id: $(this).find('strong').text(),
+                                data: mirror_list
+                            }
+                            download_list.push(links)
+                        })
+                        const data = {
+                            title: $(this).find('.maxtitle').text(),
+                            download_url: download_list
+                        }
+                        urlList.push(data)
+                    })
+
+                    obj.download_list = urlList;
+
                     if (section !== undefined) {
                         for (let i = 0; i < section.length; i++) {
                             const links = [];
