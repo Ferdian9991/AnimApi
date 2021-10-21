@@ -19,6 +19,10 @@ Heroku Deployment Buildpack
 ```bash
 heroku buildpacks:add jontewks/puppeteer
 ```
+### Deploy to Heroku
+
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/Ferdian9991/AnimApi)
+
 ## Ex Response
 
 Endpoint : https://anims-api.herokuapp.com/otakudesu/anime/kingdm-season-3-sub-indo/
