@@ -25,6 +25,20 @@ const UserAgent = async (page) => {
     await page.setUserAgent(userAgent);
 }
 
+const onload = {
+    args: [
+      '--no-sandbox',
+      '--disable-setuid-sandbox',
+      '--disable-dev-shm-usage',
+      '--disable-accelerated-2d-canvas',
+      '--no-first-run',
+      '--no-zygote',
+      '--disable-gpu'
+    ],
+    headless: true
+}
+  
+
 class MainController {
     async search ({params: {portal, query}}, req) {
         let obj = {};
@@ -94,11 +108,11 @@ class MainController {
             if (info[0] !== undefined) {
                 if (portal === 'otakudesu') {
                     obj.detail = otakudesu.otakudesu(info, thumb, $)
-                    const browser = await puppeteer.launch({ args: ['--no-sandbox'] });
+                    const browser = await puppeteer.launch(onload);
                     const page = await browser.newPage();
                     await UserAgent(page);
                     await page.goto(url, {
-                        waitUntil: 'domcontentloaded',
+                        waitUntil: 'networkidle2',
                     });
                     const downloadList = await page.evaluate(() => {
                         let list = []
@@ -121,7 +135,7 @@ class MainController {
 
                 if (portal === 'oploverz') {
                     obj.detail = oploverz.oploverz(info, thumb, $);
-                    const browser = await puppeteer.launch({ args: ['--no-sandbox'] });
+                    const browser = await puppeteer.launch(onload);
                     const page = await browser.newPage();
                     await UserAgent(page);
                     await page.goto(url, {
@@ -151,11 +165,11 @@ class MainController {
 
                 if (portal === 'anitoki') {
                     obj.detail = anitoki.anitoki(info, thumb, $)
-                    const browser = await puppeteer.launch({ args: ['--no-sandbox'] });
+                    const browser = await puppeteer.launch(onload);
                     const page = await browser.newPage();
                     await UserAgent(page);
                     await page.goto(url, {
-                        waitUntil: 'domcontentloaded',
+                        waitUntil: 'networkidle2',
                     });
                     const downloadList = await page.evaluate(() => {
                         let list = []
@@ -178,7 +192,7 @@ class MainController {
 
                 if (portal === 'meownime') {
                     obj.detail = meownime.meownime(info, thumb, $)
-                    const browser = await puppeteer.launch({ args: ['--no-sandbox'] });
+                    const browser = await puppeteer.launch(onload);
                     const page = await browser.newPage();
                     await UserAgent(page);
                     await page.goto(url, {
