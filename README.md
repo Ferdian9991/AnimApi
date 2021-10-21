@@ -15,7 +15,10 @@ npm install
 ```bash
 npm run start
 ```
-
+Heroku Deployment Buildpack
+```bash
+heroku buildpacks:add jontewks/puppeteer
+```
 ## Documentation
 __Api Path__ : http://anims-api.herokuapp.com/</br>
 __API Version__ : v1
