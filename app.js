@@ -23,7 +23,7 @@ app.use('/',(req,res)=>{
       status : res.statusCode.toString(),
       appName : 'Wibu Desu anime scraper API',
       createdBy : 'Ferdian9991',
-      github :'https://github.com/Ferdian9991/wibudesu-anime-api'
+      github :'https://github.com/Ferdian9991/AnimApi'
   })
 })
 
