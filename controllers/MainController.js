@@ -62,7 +62,9 @@ const onload = {
         '--password-store=basic',
         '--use-gl=swiftshader',
         '--use-mock-keychain',
+        '--disable-gl-drawing-for-tests',
     ],
+    devtools: false,
     headless: true
 }
   
