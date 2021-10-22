@@ -7,11 +7,11 @@ AnimApi is a public api built using node js
 ```bash
 git clone https://github.com/Ferdian9991/AnimApi.git
 ```
-2. Install packages (using `yarn` or `npm`)
+2. Install packages
 ```bash
 npm install
 ```
-3. Start server
+3. Run Server
 ```bash
 npm run start
 ```
@@ -26,7 +26,7 @@ heroku buildpacks:add jontewks/puppeteer
 ## Ex Response
 
 Endpoint : https://anims-api.herokuapp.com/otakudesu/anime/kingdm-season-3-sub-indo/
-```json
+```bash
 {
   status: "success",
   statusCode: 200,
@@ -58,13 +58,12 @@ Endpoint : https://anims-api.herokuapp.com/otakudesu/anime/kingdm-season-3-sub-i
       id: "kgdm-s3-episode-1-sub-indo/"
     }
   ]
-}
-,
+},
 ```
 
 ## Documentation
-__Api Path__ : http://anims-api.herokuapp.com/</br>
-__API Version__ : v1
+__Path__ : http://anims-api.herokuapp.com/</br>
+__Version__ : 0.10.0
 
 | Endpoint | Source | Params | Description |
 | -------- | ------ | ------ | -----------|
